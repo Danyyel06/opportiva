@@ -1,0 +1,785 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Opportiva — Opportunities for every student, everywhere</title>
+<meta name="description" content="Find competitions, scholarships and programmes in one searchable place, with deadlines, eligibility and how to apply.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#FAFAF8;--cream:#FBF7EC;--ink:#111;--body:#5F5F5C;--muted:#757571;--line:rgba(17,17,17,.09);
+  --accent:#2563EB;--glow:rgba(37,99,235,.35);--navy:#0F2942;
+  --lilac:#E9D9FF;--peach:#FFE4C7;--mint:#D9F7C9;--sky:#CFE4FF;--butter:#FFE98A;
+  --font:'Plus Jakarta Sans',system-ui,-apple-system,sans-serif;
+  --shadow:0 20px 60px rgba(0,0,0,.06);color-scheme:light;
+  padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);box-sizing:border-box}
+*{box-sizing:border-box;margin:0}
+html{scroll-behavior:smooth;scroll-padding-top:96px}
+body{background:var(--bg);color:var(--body);font:400 17px/1.55 var(--font);overflow-x:hidden;-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}
+:focus-visible{outline:3px solid var(--accent);outline-offset:3px;border-radius:8px}
+h1,h2,h3,h4{font-weight:600;color:var(--ink);letter-spacing:-.035em;line-height:1.05}
+h1,h2{text-align:center;margin:0 auto}
+h2{font-size:clamp(34px,5vw,60px);max-width:880px}
+em{font-style:italic}
+section{padding:120px 24px;position:relative}
+.alt{background:var(--cream)}
+.wrap{max-width:1080px;margin:auto}
+.eyebrow{font:600 11px var(--font);letter-spacing:.18em;text-transform:uppercase;color:var(--muted);text-align:center;margin-bottom:20px}
+.mono{font:600 12px var(--font);letter-spacing:.12em;text-transform:uppercase}
+.lead{max-width:540px;margin:24px auto 0;text-align:center}
+.btn{display:inline-flex;align-items:center;padding:16px 30px;border-radius:999px;background:var(--accent);color:#fff;font:600 16px var(--font);box-shadow:0 10px 30px var(--glow),inset 0 1px 0 rgba(255,255,255,.35);transition:.3s}
+.btn:hover{box-shadow:0 14px 44px rgba(37,99,235,.55),inset 0 1px 0 rgba(255,255,255,.35)}
+.btn.sm{padding:10px 18px;font-size:14px;box-shadow:0 6px 18px var(--glow),inset 0 1px 0 rgba(255,255,255,.35)}
+.center{text-align:center;margin-top:40px}
+.link{font-weight:600;color:var(--accent);margin-left:20px}
+.link:hover{text-decoration:underline}
+
+/* nav */
+.nav{position:fixed;top:calc(16px + env(safe-area-inset-top,0px));left:50%;transform:translateX(-50%);z-index:30;display:flex;align-items:center;gap:30px;padding:8px 8px 8px 22px;background:rgba(255,255,255,.8);backdrop-filter:blur(10px);border:1px solid var(--line);border-radius:999px;box-shadow:0 8px 30px rgba(0,0,0,.06);white-space:nowrap}
+.logo{font:700 15px var(--font);color:var(--ink);display:flex;align-items:center;gap:8px}
+.logo i{width:18px;height:18px;border-radius:6px;background:var(--accent);position:relative}
+.logo i:after{content:"";position:absolute;inset:5px;border-radius:50%;background:#fff}
+.nav ul{display:flex;gap:24px;list-style:none;padding:0;font-size:14px;font-weight:500}
+.nav ul a:hover{color:var(--ink)}
+
+/* hero */
+.hero{min-height:100vh;padding:150px 24px 0;overflow:hidden;background-image:radial-gradient(rgba(17,17,17,.09) 1px,transparent 1px);background-size:24px 24px}
+.hero:before{content:"";position:absolute;inset:0;background:radial-gradient(ellipse at 50% 35%,var(--bg) 30%,transparent 75%);pointer-events:none}
+.hero>*{position:relative}
+.chip{display:flex;width:max-content;max-width:100%;margin:0 auto 28px;align-items:center;gap:8px;padding:7px 16px;background:#fff;border:1px solid var(--line);border-radius:999px;font:600 11px var(--font);letter-spacing:.1em;text-transform:uppercase;color:var(--body)}
+.chip b{width:7px;height:7px;border-radius:50%;background:var(--accent);flex:none}
+h1{font-size:clamp(42px,7.6vw,84px);max-width:900px}
+.cta-row{display:flex;justify-content:center;align-items:center;gap:10px;margin-top:36px}
+.note{font:italic 600 20px var(--font);color:var(--ink);display:flex;align-items:flex-end;gap:2px;transform:rotate(-4deg)}
+.note svg{width:44px;height:30px;margin-bottom:8px}
+.float{position:absolute;z-index:1;padding:13px 20px;border-radius:18px;border:4px solid #fff;font:600 13px var(--font);letter-spacing:.06em;text-transform:uppercase;color:var(--ink);box-shadow:0 14px 40px rgba(0,0,0,.09);animation:drift 8s ease-in-out infinite}
+@keyframes drift{0%,100%{transform:translateY(-8px) rotate(var(--r))}50%{transform:translateY(8px) rotate(var(--r))}}
+.f1{left:6%;top:210px;--r:-10deg;background:var(--butter)}
+.f2{right:7%;top:200px;--r:9deg;background:var(--mint);animation-delay:-2s}
+.f3{left:9%;top:430px;--r:-6deg;background:var(--sky);animation-delay:-4s}
+.f4{right:8%;top:450px;--r:11deg;background:var(--lilac);animation-delay:-3s}
+.f5{left:20%;top:340px;--r:6deg;background:var(--peach);animation-delay:-5s}
+.frame{max-width:960px;margin:80px auto 0;background:#fff;border:1px solid var(--line);border-radius:16px 16px 0 0;box-shadow:var(--shadow);overflow:hidden;height:380px;text-align:left}
+.bar{display:flex;gap:7px;align-items:center;padding:14px 16px;border-bottom:1px solid var(--line);background:#FCFCFB}
+.bar i{width:11px;height:11px;border-radius:50%;background:#FF5F57}.bar i:nth-child(2){background:#FEBC2E}.bar i:nth-child(3){background:#28C840}
+.bar span{margin:0 auto;font:12px var(--font);color:var(--muted);background:#F3F3F0;padding:5px 40px;border-radius:8px}
+.app{padding:26px 30px}
+.search{display:flex;justify-content:space-between;align-items:center;gap:10px;border:1px solid var(--line);border-radius:999px;padding:9px 9px 9px 20px;font-size:14px;color:var(--muted);margin-bottom:18px}
+.search b{background:var(--accent);color:#fff;border-radius:999px;padding:7px 16px;font-size:13px;flex:none}
+.cards{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+.lc{border:1px solid var(--line);border-radius:16px;padding:16px;font-size:12.5px;background:#fff}
+.lc h4{font-size:17px;line-height:1.2;margin:12px 0 10px}
+.tag{display:inline-block;padding:4px 11px;border-radius:999px;background:#F3F3F0;font:600 10px var(--font);letter-spacing:.08em;text-transform:uppercase;color:var(--ink)}
+.demo{margin-top:12px;font:600 10px var(--font);letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.ph{color:var(--muted)}
+
+/* problem */
+.probs{display:grid;grid-template-columns:repeat(2,1fr);gap:22px;margin-top:64px;max-width:900px;margin-left:auto;margin-right:auto}
+.prob{padding:30px;border-radius:22px;box-shadow:0 14px 40px rgba(0,0,0,.05);color:#4a4a48;transition:.35s}
+.prob:nth-child(1){background:var(--lilac);transform:rotate(-1.5deg)}
+.prob:nth-child(2){background:var(--peach);margin-top:36px;transform:rotate(1.5deg)}
+.prob:nth-child(3){background:var(--mint);transform:rotate(1deg)}
+.prob:nth-child(4){background:var(--sky);margin-top:36px;transform:rotate(-1deg)}
+.prob h3{font-size:26px;margin-bottom:10px}
+.prob:hover,.use:hover,.feat:hover{transform:translateY(-4px)}
+.close{text-align:center;margin-top:72px;font:italic 600 24px var(--font);color:var(--ink)}
+
+/* solution */
+.sol{background:var(--cream);border-radius:24px;box-shadow:var(--shadow);padding:16px 40px;margin-top:64px}
+.sol div{display:grid;grid-template-columns:200px 1fr;gap:24px;padding:28px 0;border-bottom:1px solid #e6e0cc;align-items:baseline}
+.sol div:last-child{border:0}
+.sol h3{font-size:30px}
+.strip{margin-top:24px;background:var(--accent);color:#fff;border-radius:999px;padding:14px 24px;text-align:center;font:600 12px var(--font);letter-spacing:.12em;text-transform:uppercase}
+
+/* categories */
+.cats{max-width:760px;margin:56px auto 0}
+.cat{display:flex;align-items:center;gap:20px;padding:22px 26px;border-radius:20px;margin-bottom:14px;color:#4a4a48;transition:.3s}
+.cat:hover{transform:translateX(6px)}
+.cat h3{font-size:28px;min-width:230px}
+.cat span{margin-left:auto;font-weight:600;color:var(--ink)}
+
+/* filters */
+.chips{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:56px}
+.fc{border-radius:20px;padding:22px 24px;font-size:15px;color:#4a4a48}
+.fc .mono{display:block;color:var(--ink);margin-bottom:8px}
+
+/* how */
+.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:32px;margin-top:72px}
+.steps li{list-style:none;border-top:1px solid #d9d4c4;padding-top:20px}
+.steps .mono{color:var(--accent);display:block;margin-bottom:12px}
+.steps h3{font-size:26px;margin-bottom:10px}
+.hl{margin:56px auto 0;max-width:640px;background:var(--butter);border-radius:20px;padding:20px 28px;text-align:center;color:var(--ink);font-weight:600}
+
+/* who */
+.uses{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;margin-top:64px}
+.use{border-radius:22px;padding:28px 24px 32px;min-height:240px;box-shadow:0 14px 40px rgba(0,0,0,.05);transition:.35s;color:#4a4a48}
+.use h3{font-size:25px;margin-bottom:12px}
+.use:nth-child(1){background:var(--lilac);transform:rotate(-3deg)}
+.use:nth-child(2){background:var(--peach);transform:rotate(2deg)}
+.use:nth-child(3){background:var(--mint);transform:rotate(-2deg)}
+.use:nth-child(4){background:var(--sky);transform:rotate(3deg)}
+.use:hover{transform:translateY(-4px) rotate(0)}
+
+/* features */
+.feat{background:var(--cream);border-radius:24px;box-shadow:var(--shadow);padding:48px;display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center;margin-top:28px;transition:.35s}
+.alt .feat{background:#fff}
+.feat.rev .txt{order:2}
+.feat .mono{color:var(--accent);margin-bottom:14px}
+.feat h3{font-size:clamp(28px,3.4vw,40px);margin-bottom:14px}
+.ill{background:#fff;border-radius:20px;padding:22px;box-shadow:0 14px 40px rgba(0,0,0,.06);font-size:14px;display:flex;flex-direction:column;gap:10px}
+.alt .ill{background:var(--cream)}
+.row{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:11px 14px;border-radius:12px;color:var(--ink);font-weight:500}
+.row small{font:600 10px var(--font);letter-spacing:.08em;text-transform:uppercase;color:var(--body)}
+.pills{display:flex;flex-wrap:wrap;gap:8px}
+.pills .tag{padding:8px 14px;font-size:11px}
+.phone{width:150px;margin:auto;border:6px solid var(--ink);border-radius:26px;padding:16px 12px;display:flex;flex-direction:column;gap:8px;background:#fff}
+.phone i{display:block;height:10px;border-radius:6px;background:#EDEDEA}
+.phone i:first-child{width:60%;background:var(--sky)}.phone b{display:block;height:28px;border-radius:999px;background:var(--accent)}
+.quote{margin:44px auto 0;background:var(--navy);color:#fff;border-radius:999px;padding:20px 32px;text-align:center;font:600 13px var(--font);letter-spacing:.12em;text-transform:uppercase}
+
+/* sample listings */
+.five{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:56px}
+.five .lc{padding:22px;font-size:14px}
+.five .lc h4{font-size:22px}
+.five dl{display:flex;justify-content:space-between;border-top:1px solid var(--line);padding-top:10px;margin-top:8px}
+.five dt{font:600 10px var(--font);letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.foot{max-width:600px;margin:36px auto 0;text-align:center;font-size:14px;color:var(--ink);font-weight:500}
+
+/* promise */
+.box{max-width:820px;margin:0 auto;background:var(--navy);border-radius:28px;padding:64px 48px;text-align:center;color:#cdd6e0}
+.box h2{color:#fff}.box .eyebrow{color:#9dbbff}
+.box p{max-width:600px;margin:24px auto 0}
+.two{max-width:660px;margin:24px auto 0;text-align:center}
+
+/* roadmap */
+.road{display:grid;grid-template-columns:repeat(5,1fr);gap:18px;margin-top:64px}
+.road li{list-style:none;padding:22px;border-radius:20px;font-size:14.5px;color:#4a4a48}
+.road h3{font-size:22px;margin:10px 0 8px}
+.road li:nth-child(odd){transform:translateY(14px)}
+
+/* faq */
+.faq{max-width:760px;margin:56px auto 0}
+details{border-bottom:1px solid var(--line);padding:6px 0}
+summary{cursor:pointer;list-style:none;display:flex;justify-content:space-between;gap:20px;align-items:center;padding:18px 0;font:600 19px var(--font);color:var(--ink);letter-spacing:-.01em}
+summary::-webkit-details-marker{display:none}
+summary:after{content:"+";flex:none;width:30px;height:30px;border-radius:50%;background:var(--sky);display:grid;place-items:center;font-size:18px;transition:.25s}
+details[open] summary:after{transform:rotate(45deg)}
+details p{padding:0 50px 20px 0}
+
+/* name */
+.name{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;margin-top:56px}
+.name div{padding:26px 24px;border-radius:20px;color:#4a4a48}
+.name h3{font-size:26px;margin:10px 0 10px}
+
+/* close + footer */
+.end h2{font-size:clamp(44px,7vw,84px)}
+.vision{max-width:560px;margin:28px auto 0;text-align:center;font-size:14px;color:var(--muted)}
+footer{padding:48px 24px;border-top:1px solid var(--line);font-size:14px}
+footer .in{max-width:1080px;margin:auto;display:flex;flex-direction:column;gap:20px}
+footer .top{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;align-items:center}
+footer nav{display:flex;gap:20px;flex-wrap:wrap}
+footer nav a:hover{color:var(--ink)}
+
+.reveal{opacity:1}
+.js .reveal{opacity:0;transform:translateY(16px);transition:opacity .6s ease,transform .6s ease}
+.js .reveal.in{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){.float{animation:none}.js .reveal{opacity:1;transform:none;transition:none}html{scroll-behavior:auto}}
+
+@media(max-width:900px){
+  section{padding:88px 20px}
+  .nav{gap:14px;padding-left:16px}.nav ul{display:none}
+  .hero{padding-top:120px}
+  .f3,.f4,.f5{display:none}.f1{left:-8px;top:110px}.f2{right:-8px;top:120px}
+  .cta-row{flex-direction:column}.note{display:none}
+  .frame{margin-top:56px;height:320px}.app{padding:18px}.cards{grid-template-columns:1fr 1fr}.cards .lc:nth-child(n+3){display:none}
+  .probs,.chips,.five,.name{grid-template-columns:1fr 1fr}.prob:nth-child(n){margin-top:0}
+  .uses,.steps{grid-template-columns:1fr 1fr}.road{grid-template-columns:1fr 1fr}.road li:nth-child(odd){transform:none}
+  .feat{grid-template-columns:1fr;padding:30px 22px;gap:28px}.feat.rev .txt{order:0}
+  .sol{padding:8px 24px}.sol div{grid-template-columns:1fr;gap:8px}
+  .cat{flex-wrap:wrap}.cat h3{min-width:0}
+  .quote{border-radius:24px}.box{padding:44px 24px}
+}
+@media(max-width:560px){.probs,.chips,.five,.name,.uses,.steps,.road{grid-template-columns:1fr}.use{min-height:0}.link{display:block;margin:16px 0 0}.chip{font-size:10px}}
+
+/* ===== DEMO PROTOTYPE ADD-ON ===== */
+[hidden]{display:none!important}
+button{font:inherit;cursor:pointer}
+button.btn{border:0}
+.btn.alt2{background:#fff;color:var(--ink);box-shadow:inset 0 0 0 1px var(--line)}
+.btn.alt2:hover{box-shadow:inset 0 0 0 1px var(--ink)}
+.navauth{display:flex;align-items:center;gap:6px}
+.lnk{border:0;background:none;font:600 14px var(--font);color:var(--ink);padding:10px 12px;border-radius:999px}
+.lnk:hover{background:#F0F0EC}
+.pill2{border:0;border-radius:999px;padding:10px 18px;background:#EDEDEA;color:var(--ink);font:600 14px var(--font);transition:.2s}
+.pill2:hover{background:#E3E3DE}
+.menubtn{display:none;place-items:center;width:40px;height:40px;border:0;border-radius:50%;background:#EDEDEA;color:var(--ink)}
+.uchip{display:flex;align-items:center;gap:10px;border:0;background:#EDEDEA;border-radius:999px;padding:5px 16px 5px 5px;color:var(--ink)}
+.un{display:flex;flex-direction:column;text-align:left;font:600 13px/1.25 var(--font)}
+.un small{font:500 11px var(--font);color:var(--body)}
+.av{flex:none;width:34px;height:34px;border-radius:50%;background:var(--sky);color:var(--ink);display:grid;place-items:center;font:700 12px var(--font)}
+.av.lg{width:56px;height:56px;font-size:16px}
+.ddm{position:absolute;top:calc(100% + 10px);right:0;min-width:240px;background:#fff;border:1px solid var(--line);border-radius:20px;box-shadow:var(--shadow);padding:8px;white-space:normal;display:flex;flex-direction:column}
+.ddm a,.ddm button{padding:11px 14px;border-radius:12px;border:0;background:none;text-align:left;font:500 14px var(--font);color:var(--ink)}
+.ddm a:hover,.ddm button:hover,.ddm .on{background:var(--cream)}
+.ddm small{padding:8px 14px 4px;font:600 10px var(--font);letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+.in-app .navpub,.in-app .menubtn,.in-app .nav ul{display:none!important}
+.in-app main,.in-app footer{display:none}
+@media(max-width:1180px){.nav>a.navpub{display:none}}
+@media(max-width:900px){.navpub{display:none!important}.menubtn{display:grid}}
+@media(max-width:560px){.un{display:none}.uchip{padding:5px}}
+
+#toast{position:fixed;left:50%;bottom:calc(24px + env(safe-area-inset-bottom,0px));transform:translate(-50%,20px);z-index:90;background:var(--navy);color:#fff;padding:12px 22px;border-radius:999px;font:600 14px var(--font);opacity:0;pointer-events:none;transition:.2s;max-width:90vw;text-align:center}
+#toast.on{opacity:1;transform:translate(-50%,0)}
+#ov{position:fixed;inset:0;z-index:80;background:rgba(17,17,17,.4);display:none;align-items:center;justify-content:center;padding:16px;overflow:auto}
+#ov.on{display:flex}
+.mbox{position:relative;background:var(--bg);border-radius:28px;box-shadow:0 30px 80px rgba(0,0,0,.2);padding:32px;width:100%;max-width:520px;max-height:92vh;overflow:auto;animation:pop .2s ease}
+.mbox.auth{max-width:960px}
+@keyframes pop{from{opacity:0;transform:translateY(10px)}}
+.mbox h3{font-size:26px;margin-bottom:12px}
+.dx{position:absolute;top:16px;right:16px;width:36px;height:36px;border-radius:50%;border:0;background:#EDEDEA;display:grid;place-items:center;color:var(--ink);z-index:2}
+.dbanner{background:var(--butter);color:var(--ink);font:600 13px var(--font);padding:10px 18px;border-radius:999px;margin:0 44px 18px 0;display:inline-block}
+.dtabs{display:flex;width:max-content;background:#EDEDEA;border-radius:999px;padding:4px;margin-bottom:20px}
+.dtabs button{border:0;background:none;border-radius:999px;padding:9px 22px;font:600 14px var(--font);color:var(--body)}
+.dtabs .on{background:#fff;color:var(--ink);box-shadow:0 2px 8px rgba(0,0,0,.08)}
+.rcs{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px;margin-top:20px}
+.rc{border-radius:22px;padding:18px;display:flex;flex-direction:column;gap:8px;font-size:13.5px;color:#4a4a48;transition:.2s}
+.rc:hover{transform:translateY(-4px)}
+.rc h4{font-size:17px}.rc p{flex:1}
+.rc .btn{padding:10px 14px;font-size:13px;justify-content:center;text-align:center;box-shadow:none}
+.ric{width:40px;height:40px;border-radius:12px;background:#fff;display:grid;place-items:center;color:var(--ink)}
+.dok{text-align:center;padding:40px 0;display:flex;flex-direction:column;align-items:center;gap:8px;color:var(--ink)}
+.dwa{background:var(--mint);color:var(--ink);padding:16px 18px;border-radius:18px 18px 18px 4px;font-size:14px;margin:12px 0}
+
+#dro{position:fixed;inset:0;background:rgba(17,17,17,.3);z-index:55;opacity:0;visibility:hidden;transition:.25s}
+#dro.on{opacity:1;visibility:visible}
+#dr{position:fixed;top:0;right:0;bottom:0;width:min(480px,100%);background:#fff;z-index:60;box-shadow:-20px 0 60px rgba(0,0,0,.1);transform:translateX(100%);visibility:hidden;transition:transform .25s,visibility .25s;overflow:auto;padding:28px;color:var(--body)}
+#dr.on{transform:none;visibility:visible}
+#dr h2{text-align:left;font-size:30px;margin:16px 0 18px}
+#dr dl{display:grid;grid-template-columns:110px 1fr;gap:10px 16px;font-size:14px;padding:16px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+#dr dt{font:600 10px var(--font);letter-spacing:.1em;text-transform:uppercase;color:var(--muted);padding-top:3px}
+#dr dd{color:var(--ink);font-weight:500}
+.dcm{background:var(--peach);color:var(--ink);padding:14px 16px;border-radius:14px;font-size:14px;margin-top:16px}
+
+.dpill{display:none;position:fixed;right:20px;bottom:calc(20px + env(safe-area-inset-bottom,0px));z-index:40;align-items:center;gap:8px;border:0;background:var(--ink);color:#fff;padding:12px 20px;border-radius:999px;font:600 13px var(--font);box-shadow:0 10px 30px rgba(0,0,0,.2)}
+.in-app .dpill{display:flex}
+.dpill i{width:8px;height:8px;border-radius:50%;background:var(--butter)}
+.dguide{position:fixed;right:20px;bottom:calc(76px + env(safe-area-inset-bottom,0px));z-index:45;width:min(340px,calc(100% - 40px));background:#fff;border:1px solid var(--line);border-radius:22px;box-shadow:var(--shadow);padding:20px;font-size:14px;color:var(--ink);max-height:70vh;overflow:auto}
+.dguide b{display:block;margin:8px 0}
+.dguide ol{padding-left:20px;color:var(--body);display:flex;flex-direction:column;gap:6px}
+.dgj{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:12px}
+.dgj button{border:0;background:#F3F3F0;border-radius:999px;padding:8px 14px;font:600 12px var(--font);color:var(--ink)}
+.dgj .on{background:var(--sky)}
+
+/* dashboards */
+#app{display:none;padding:110px 24px 120px;min-height:100vh;color:var(--body)}
+.in-app #app{display:block}
+.dwrap{max-width:1180px;margin:auto;display:grid;grid-template-columns:230px 1fr;gap:32px;align-items:start}
+.dside{position:sticky;top:96px;background:#fff;border-radius:24px;box-shadow:var(--shadow);padding:16px;display:flex;flex-direction:column;gap:4px}
+.dwho{display:flex;gap:10px;align-items:center;padding:6px 8px 14px;margin-bottom:6px;border-bottom:1px solid var(--line);font-size:13px;line-height:1.3}
+.dwho b{display:block;color:var(--ink)}.dwho small{color:var(--muted)}
+.dside>button{text-align:left;padding:11px 14px;border-radius:12px;border:0;background:none;font:500 15px var(--font);color:var(--body);transition:.2s}
+.dside>button:hover{background:var(--cream)}
+.dside>button.on{background:var(--sky);color:var(--ink);font-weight:600}
+.dmain{min-width:0}
+.dmain h1{font-size:clamp(30px,4vw,44px);text-align:left;margin:0 0 6px;max-width:none}
+.dsub{margin-bottom:8px}
+.dnote{display:inline-flex;align-items:center;gap:8px;background:var(--mint);color:var(--ink);font:600 13px var(--font);padding:9px 16px;border-radius:999px;margin-top:10px}
+.dsec{margin-top:36px}.dsec h3{font-size:22px;margin-bottom:14px}
+.dgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:16px}
+.lcard{background:#fff;border:1px solid var(--line);border-radius:20px;padding:20px;box-shadow:0 10px 30px rgba(0,0,0,.04);cursor:pointer;transition:.2s;font-size:14px;display:flex;flex-direction:column;gap:6px}
+.lcard:hover{transform:translateY(-4px);box-shadow:var(--shadow)}
+.lcard h4{font-size:19px;line-height:1.2;margin:6px 0 2px}
+.dr1{display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap}
+.dsc{display:inline-block;padding:4px 11px;border-radius:999px;font:600 10px var(--font);letter-spacing:.08em;text-transform:uppercase;color:var(--ink)}
+.dsmp{font:600 10px var(--font);letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.ddays{font:600 12px var(--font);color:var(--ink)}
+.dcard{background:#fff;border-radius:22px;box-shadow:var(--shadow);padding:26px}
+.dchild{display:flex;align-items:center;gap:16px;margin-top:20px;padding:20px 24px}
+.dchild b{display:block;color:var(--ink);font-size:18px}.dchild small{display:block}
+.dstats{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:24px}
+.dstat{border-radius:20px;padding:20px 22px;color:var(--ink);font-weight:500}
+.dstat b{display:block;font-size:36px;letter-spacing:-.03em;line-height:1.1}
+.dfbar{display:flex;flex-wrap:wrap;gap:12px;margin:20px 0 10px}
+.dfl{display:flex;flex-direction:column;gap:5px;font:600 10px var(--font);letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.dq{flex:1 1 100%}
+:is(#app,#ov,#dr) :is(select,input,textarea){font:500 14px var(--font);color:var(--ink);background:#fff;border:1px solid var(--line);border-radius:12px;padding:10px 12px;width:100%;text-transform:none;letter-spacing:0}
+.dfbar select{min-width:130px}
+.dcount{font-size:13px;margin-bottom:12px}
+.dempty{display:flex;flex-direction:column;align-items:center;gap:6px;text-align:center;padding:48px 20px;background:var(--cream);border-radius:22px;color:var(--body)}
+.dempty b{color:var(--ink);font-size:17px}.dempty svg{color:var(--muted)}
+.dstrip{display:flex;flex-direction:column;gap:10px}
+.dsr{display:flex;align-items:center;gap:10px;background:var(--peach);color:var(--ink);border:0;border-radius:16px;padding:14px 18px;text-align:left;font-size:14px}
+.drows{display:flex;flex-direction:column;gap:10px}
+.drow{display:flex;align-items:center;gap:16px;background:#fff;border:1px solid var(--line);border-radius:16px;padding:14px 18px;text-align:left;width:100%;transition:.2s;color:var(--body)}
+.drow:hover{transform:translateY(-2px)}
+.drow>span:nth-child(2){flex:1;display:flex;flex-direction:column}
+.drow b{color:var(--ink)}.drow small{font-size:12px}
+.dnum{width:54px;height:54px;border-radius:14px;background:var(--sky);display:grid;place-items:center;text-align:center;font:700 18px/1 var(--font);color:var(--ink)}
+.dnum small{display:block;font:600 9px var(--font);letter-spacing:.08em;text-transform:uppercase;margin-top:2px}
+.dchk{list-style:none;padding:0;display:flex;flex-direction:column;gap:12px}
+.dchk li{display:flex;gap:12px;align-items:flex-start;background:#fff;border-radius:16px;padding:14px 18px;box-shadow:0 6px 20px rgba(0,0,0,.04)}
+.dchk svg{flex:none;color:var(--accent);margin-top:2px}.dchk b{color:var(--ink)}
+.dflow{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}
+.dflow span{flex:1;min-width:120px;padding:14px;border-radius:14px;text-align:center;font-weight:600;color:var(--ink)}
+.dform{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.dform .full{grid-column:1/-1}
+.pv{font:500 15px var(--font);color:var(--ink);text-transform:none;letter-spacing:0;padding:6px 0}
+.dbtns{display:flex;gap:10px;flex-wrap:wrap;margin-top:20px}
+.dtw{overflow-x:auto;background:#fff;border-radius:22px;box-shadow:var(--shadow)}
+.dtbl{width:100%;border-collapse:collapse;font-size:14px;min-width:560px}
+.dtbl th{text-align:left;font:600 10px var(--font);letter-spacing:.1em;text-transform:uppercase;color:var(--muted);padding:16px 18px}
+.dtbl td{padding:14px 18px;border-top:1px solid var(--line);vertical-align:top}
+.dtbl td b{color:var(--ink)}.dtbl small{display:block;color:var(--body)}
+.drep{display:flex;justify-content:space-between;align-items:center;gap:14px;flex-wrap:wrap;margin-bottom:12px;padding:20px 24px}
+.drep b{color:var(--ink);display:block}
+@media(max-width:900px){
+  #app{padding:100px 16px 120px}
+  .dwrap{grid-template-columns:1fr;gap:20px}
+  .dside{position:static;flex-direction:row;overflow-x:auto;border-radius:999px;padding:6px}
+  .dwho{display:none}.dside>button{white-space:nowrap}
+  .mbox{padding:24px 20px}
+}
+@media(max-width:560px){.dstats,.dform{grid-template-columns:1fr}.dgrid{grid-template-columns:1fr}#dr{padding:22px}}
+</style>
+</head>
+<body>
+<nav class="nav" aria-label="Main">
+  <a class="logo" href="#top"><i></i>Opportiva</a>
+  <ul>
+    <li><a href="#listings">Explore</a></li>
+    <li><a href="#categories">Categories</a></li>
+    <li><a href="#how">How it works</a></li>
+    <li><a href="#organisers">For organisers</a></li>
+    <li><a href="#about">About</a></li>
+  </ul>
+  <a class="btn sm navpub" href="#listings">Explore opportunities</a>
+  <span class="navauth navpub"><button class="lnk" data-a="auth" data-t="in">Sign in</button><button class="pill2" data-a="auth" data-t="up">Sign up</button></span>
+  <button class="menubtn" data-a="mmenu" aria-label="Open menu" aria-haspopup="true"></button>
+  <span id="navuser"></span>
+  <div class="ddm" id="umenu" hidden></div><div class="ddm" id="mnav" hidden></div>
+</nav>
+
+<main id="top">
+<section class="hero">
+  <div class="float f1" style="--r:-10deg" aria-hidden="true">Spelling Bee</div>
+  <div class="float f2" style="--r:9deg" aria-hidden="true">STEM</div>
+  <div class="float f3" style="--r:-6deg" aria-hidden="true">Debate</div>
+  <div class="float f4" style="--r:11deg" aria-hidden="true">Scholarship</div>
+  <div class="float f5" style="--r:6deg" aria-hidden="true">Leadership</div>
+
+  <p class="chip"><b></b>Free to browse. No account needed.</p>
+  <h1>Opportunities for<br>every student,<br><em>everywhere.</em></h1>
+  <p class="lead">Find competitions, scholarships and programmes in one searchable place, with deadlines, eligibility and how to apply.</p>
+  <div class="cta-row">
+    <a class="btn" href="#listings">Explore opportunities</a>
+    <span class="note" aria-hidden="true"><svg viewBox="0 0 44 30" fill="none" stroke="#111" stroke-width="1.6" stroke-linecap="round"><path d="M42 24C28 28 10 22 5 6M5 6l-1 9M5 6l8 4"/></svg>it’s free</span>
+  </div>
+
+  <div class="frame reveal" role="img" aria-label="Illustration of the Opportiva listings page: a search bar above four sample listing cards for a spelling bee, a STEM challenge, a debate and a leadership conference.">
+    <div class="bar"><i></i><i></i><i></i><span>opportiva</span></div>
+    <div class="app">
+      <div class="search"><span>Search spelling bees, scholarships, STEM challenges...</span><b>Search</b></div>
+      <div class="cards">
+        <div class="lc"><span class="tag" style="background:var(--butter)">Academics</span><h4>National Spelling Bee</h4><span>In person · 12 Mar 2027</span></div>
+        <div class="lc"><span class="tag" style="background:var(--mint)">STEM</span><h4>Young Innovators STEM Challenge</h4><span>Hybrid · 28 Feb 2027</span></div>
+        <div class="lc"><span class="tag" style="background:var(--butter)">Academics</span><h4>Secondary School Debate</h4><span>In person · 15 Mar 2027</span></div>
+        <div class="lc"><span class="tag" style="background:var(--lilac)">Leadership</span><h4>Youth Leadership Conference</h4><span>Online · 5 Apr 2027</span></div>
+      </div>
+      <p class="demo">Sample listings for illustration. Not confirmed events.</p>
+    </div>
+  </div>
+</section>
+
+<section id="challenge">
+  <div class="wrap">
+    <p class="eyebrow">The challenge</p>
+    <h2>Talent is everywhere. <em>Information</em> is not.</h2>
+    <p class="lead">The barrier is often not ability or ambition. It’s knowing what exists, who can apply and how.</p>
+    <div class="probs">
+      <div class="prob reveal"><h3>Scattered information</h3>Announcements are spread across social media, messaging groups, school networks and separate websites.</div>
+      <div class="prob reveal"><h3>Missed deadlines</h3>Students often find out about a competition after applications have closed.</div>
+      <div class="prob reveal"><h3>Unequal visibility</h3>Learners outside established networks hear about fewer opportunities.</div>
+      <div class="prob reveal"><h3>Limited reach</h3>Organisers struggle to reach the right schools and students beyond their existing contacts.</div>
+    </div>
+    <p class="close">Opportiva brings it all into one searchable place.</p>
+  </div>
+</section>
+
+<section class="alt" id="platform">
+  <div class="wrap">
+    <p class="eyebrow">One platform</p>
+    <h2>One place. <em>Countless</em> opportunities.</h2>
+    <p class="lead">Opportiva is a mobile-friendly website that helps students find educational and development opportunities that fit them.</p>
+    <div class="sol reveal">
+      <div><h3>Discover</h3><p>Find competitions, scholarships, STEM challenges, debates, leadership programmes and more.</p></div>
+      <div><h3>Compare</h3><p>Check location, eligibility, age or level, deadline, cost and format side by side.</p></div>
+      <div><h3>Take the next step</h3><p>Follow clear instructions or go straight to the organiser’s official registration link.</p></div>
+    </div>
+    <p class="strip">Free to browse · Works on phones and computers</p>
+  </div>
+</section>
+
+<section id="categories">
+  <div class="wrap">
+    <p class="eyebrow">Browse by interest</p>
+    <h2>Start with what you <em>love.</em></h2>
+    <div class="cats">
+      <a class="cat reveal" href="#listings" style="background:var(--butter)"><h3>Academics</h3><p>Spelling bees, quizzes, debates</p><span aria-hidden="true">→</span></a>
+      <a class="cat reveal" href="#listings" style="background:var(--peach)"><h3>Scholarships</h3><p>Grants, bursaries</p><span aria-hidden="true">→</span></a>
+      <a class="cat reveal" href="#listings" style="background:var(--mint)"><h3>STEM &amp; Innovation</h3><p>Science, technology, ideas</p><span aria-hidden="true">→</span></a>
+      <a class="cat reveal" href="#listings" style="background:var(--lilac)"><h3>Leadership</h3><p>Conferences, youth programmes</p><span aria-hidden="true">→</span></a>
+    </div>
+    <p class="center"><a class="link" style="margin:0" href="#listings">See all categories →</a></p>
+  </div>
+</section>
+
+<section class="alt" id="filters">
+  <div class="wrap">
+    <p class="eyebrow">Search &amp; filter</p>
+    <h2>Find what actually <em>fits.</em></h2>
+    <p class="lead">Narrow the list by what matters to you.</p>
+    <div class="chips">
+      <div class="fc reveal" style="background:var(--sky)"><span class="mono">Location</span>State, local government area, venue</div>
+      <div class="fc reveal" style="background:var(--mint)"><span class="mono">Category</span>Academic, STEM, sports, arts, leadership and more</div>
+      <div class="fc reveal" style="background:var(--butter)"><span class="mono">Eligibility</span>Age range, education level, requirements</div>
+      <div class="fc reveal" style="background:var(--lilac)"><span class="mono">Deadline</span>When applications close and when the event happens</div>
+      <div class="fc reveal" style="background:var(--peach)"><span class="mono">Cost</span>Free or paid, where disclosed</div>
+      <div class="fc reveal" style="background:var(--sky)"><span class="mono">Format</span>Online, in person or hybrid</div>
+    </div>
+  </div>
+</section>
+
+<section id="how">
+  <div class="wrap">
+    <p class="eyebrow">How it works</p>
+    <h2>From finding it to <em>applying.</em></h2>
+    <ol class="steps" style="padding:0;margin-top:72px">
+      <li class="reveal"><span class="mono">01</span><h3>Discover</h3>Visit Opportiva and browse what’s available.</li>
+      <li class="reveal"><span class="mono">02</span><h3>Filter</h3>Search by interest, location, eligibility or deadline.</li>
+      <li class="reveal"><span class="mono">03</span><h3>Review</h3>Check requirements, dates, costs and details.</li>
+      <li class="reveal"><span class="mono">04</span><h3>Apply</h3>Follow the organiser’s official application instructions.</li>
+    </ol>
+    <p class="hl">You don’t need to pay, sign up or be invited to browse opportunities.</p>
+  </div>
+</section>
+
+<section class="alt" id="who">
+  <div class="wrap">
+    <p class="eyebrow">Who it’s for</p>
+    <h2>Built for the people <em>around</em> the student.</h2>
+    <div class="uses">
+      <div class="use reveal"><h3>Students</h3>Find programmes that match your interests, level and eligibility.</div>
+      <div class="use reveal"><h3>Schools &amp; teachers</h3>Find suitable opportunities and share them with learners and families.</div>
+      <div class="use reveal"><h3>Parents &amp; guardians</h3>Read the details and make informed decisions together.</div>
+      <div class="use reveal"><h3>Organisers &amp; NGOs</h3>Publish accurate information and reach the students you’re looking for.</div>
+    </div>
+  </div>
+</section>
+
+<section id="about">
+  <div class="wrap">
+    <p class="eyebrow">Why Opportiva</p>
+    <h2>Not another place for <em>announcements.</em></h2>
+    <p class="lead">Social media spreads opportunities across countless posts. Opportiva organises them in one searchable place, with the details that matter, like deadlines and eligibility.</p>
+
+    <div class="feat reveal" style="margin-top:64px">
+      <div class="txt"><p class="mono">One place to look</p><h3>Everything in one spot.</h3>Opportunities from many providers, all in one spot.</div>
+      <div class="ill"><div class="row" style="background:var(--butter)">National Spelling Bee<small>Provider A</small></div><div class="row" style="background:var(--mint)">STEM Challenge<small>Provider B</small></div><div class="row" style="background:var(--lilac)">Youth Conference<small>Provider C</small></div></div>
+    </div>
+    <div class="feat rev reveal">
+      <div class="txt"><p class="mono">Filters made for education</p><h3>Search the way schools think.</h3>Search by category, location, age and level.</div>
+      <div class="ill"><div class="pills"><span class="tag" style="background:var(--sky)">Category</span><span class="tag" style="background:var(--mint)">Location</span><span class="tag" style="background:var(--butter)">Age</span><span class="tag" style="background:var(--lilac)">Level</span></div></div>
+    </div>
+    <div class="feat reveal">
+      <div class="txt"><p class="mono">Open to every community</p><h3>Visible from anywhere.</h3>Better visibility for rural, underserved, peri-urban and urban areas.</div>
+      <div class="ill"><div class="pills"><span class="tag" style="background:var(--mint)">Rural</span><span class="tag" style="background:var(--peach)">Underserved</span><span class="tag" style="background:var(--sky)">Peri-urban</span><span class="tag" style="background:var(--lilac)">Urban</span></div></div>
+    </div>
+    <div class="feat rev reveal">
+      <div class="txt"><p class="mono">Listings that get reviewed</p><h3>Checked, and reportable.</h3>Submissions are checked, and anyone can report inaccurate or suspicious listings.</div>
+      <div class="ill"><div class="row" style="background:var(--butter)">Submitted<small>Organiser</small></div><div class="row" style="background:var(--mint)">Reviewed<small>Admin</small></div><div class="row" style="background:var(--peach)">Report a listing<small>Anyone</small></div></div>
+    </div>
+    <div class="feat reveal">
+      <div class="txt"><p class="mono">Made for phones</p><h3>Light and easy on mobile.</h3>Pages that work well on common smartphones and computers.</div>
+      <div class="ill" aria-hidden="true"><div class="phone"><i></i><i></i><i></i><b></b></div></div>
+    </div>
+    <div class="feat rev reveal">
+      <div class="txt"><p class="mono">Clear next steps</p><h3>No guessing how to apply.</h3>Costs, deadlines, eligibility and official application routes, all visible.</div>
+      <div class="ill"><div class="row" style="background:var(--sky)">Cost<small>Visible</small></div><div class="row" style="background:var(--butter)">Deadline<small>Visible</small></div><div class="row" style="background:var(--mint)">Eligibility<small>Visible</small></div><div class="row" style="background:var(--lilac)">Official link<small>Visible</small></div></div>
+    </div>
+    <p class="quote">Your location should never limit your potential.</p>
+  </div>
+</section>
+
+<section class="alt" id="listings">
+  <div class="wrap">
+    <p class="eyebrow">Sample listings for illustration</p>
+    <h2>What a listing <em>looks</em> like.</h2>
+    <div class="five">
+      <article class="lc reveal"><span class="tag" style="background:var(--butter)">Academics</span><h4>National Spelling Bee</h4><dl><dt>Format</dt><dd>In person</dd></dl><dl><dt>Deadline</dt><dd>12 Mar 2027</dd></dl></article>
+      <article class="lc reveal"><span class="tag" style="background:var(--mint)">STEM</span><h4>Young Innovators STEM Challenge</h4><dl><dt>Format</dt><dd>Hybrid</dd></dl><dl><dt>Deadline</dt><dd>28 Feb 2027</dd></dl></article>
+      <article class="lc reveal"><span class="tag" style="background:var(--butter)">Academics</span><h4>Secondary School Debate</h4><dl><dt>Format</dt><dd>In person</dd></dl><dl><dt>Deadline</dt><dd>15 Mar 2027</dd></dl></article>
+      <article class="lc reveal"><span class="tag" style="background:var(--lilac)">Leadership</span><h4>Youth Leadership Conference</h4><dl><dt>Format</dt><dd>Online</dd></dl><dl><dt>Deadline</dt><dd>5 Apr 2027</dd></dl></article>
+      <article class="lc reveal"><span class="tag" style="background:var(--peach)">Scholarships</span><h4>Scholarship Programme</h4><dl><dt>Format</dt><dd>Online</dd></dl><dl><dt>Deadline</dt><dd>30 Apr 2027</dd></dl></article>
+    </div>
+    <p class="foot">These are sample listings that show how Opportiva will look. They are not confirmed events.</p>
+  </div>
+</section>
+
+<section id="promise">
+  <div class="box reveal">
+    <p class="eyebrow">Our promise</p>
+    <h2>Free to discover. <em>Always.</em></h2>
+    <p>Browsing, searching and viewing opportunity details costs nothing, with no paywall and no account needed. If we ever add optional services for organisers or schools, they will be clearly explained, fully optional and tested first.</p>
+  </div>
+</section>
+
+<section class="alt" id="pilot">
+  <div class="wrap">
+    <p class="eyebrow">The pilot</p>
+    <h2>Starting in Badagry. Built for <em>Nigeria.</em></h2>
+    <p class="two">We’re beginning with a local pilot in Badagry, Lagos State, working with selected schools and trusted organisers. We’ll learn what students and schools need, improve the platform, then grow to other parts of Lagos and across Nigeria.</p>
+  </div>
+</section>
+
+<section id="roadmap">
+  <div class="wrap">
+    <p class="eyebrow">The road ahead</p>
+    <h2>From idea to <em>tested pilot.</em></h2>
+    <ol class="road" style="padding:0">
+      <li class="reveal" style="background:var(--lilac)"><span class="mono">01</span><h3>Research</h3>Talk to schools, students, parents and organisers.</li>
+      <li class="reveal" style="background:var(--peach)"><span class="mono">02</span><h3>Prototype</h3>Build the homepage, listings, search, filters and submission flow.</li>
+      <li class="reveal" style="background:var(--mint)"><span class="mono">03</span><h3>Test</h3>Check mobile use, accessibility, privacy and listing accuracy.</li>
+      <li class="reveal" style="background:var(--sky)"><span class="mono">04</span><h3>Pilot</h3>Try it with selected schools and credible organisers in Badagry.</li>
+      <li class="reveal" style="background:var(--butter)"><span class="mono">05</span><h3>Improve &amp; expand</h3>Use feedback to improve, then grow step by step.</li>
+    </ol>
+    <p class="foot" style="margin-top:56px">We’re starting with a website. A mobile app may come later.</p>
+  </div>
+</section>
+
+<section class="alt" id="organisers">
+  <div class="wrap">
+    <p class="eyebrow">For organisers</p>
+    <h2>Reach the students you’re <em>looking for.</em></h2>
+    <p class="lead">Running a competition, scholarship or youth programme? Publish your details on Opportiva so schools and students can find them, with your deadline, eligibility and official registration link front and centre.</p>
+    <p class="center"><a class="btn" href="#organisers">List an opportunity</a><a class="link" href="#organisers">Join the pilot list</a></p>
+  </div>
+</section>
+
+<section id="schools">
+  <div class="wrap">
+    <p class="eyebrow">For schools</p>
+    <h2>Help your students <em>find more.</em></h2>
+    <p class="lead">Browse opportunities that suit your learners and share them with students and families, all from one place.</p>
+    <p class="center"><a class="btn" href="#schools">Partner with us</a></p>
+  </div>
+</section>
+
+<section class="alt" id="faq">
+  <div class="wrap">
+    <p class="eyebrow">Questions</p>
+    <h2>Good questions, <em>plain answers.</em></h2>
+    <div class="faq">
+      <details><summary>Why Opportiva?</summary><p>Students shouldn’t miss opportunities just because the information never reached them.</p></details>
+      <details><summary>How is it different from social media?</summary><p>Social media spreads announcements across countless posts. Opportiva organises educational opportunities in one searchable place, with details like deadlines and eligibility.</p></details>
+      <details><summary>Is it free?</summary><p>Yes. Browsing, searching and viewing opportunity details are free, with no account needed.</p></details>
+      <details><summary>How do I know a listing is genuine?</summary><p>Listings are reviewed, and you can report anything that looks inaccurate or suspicious.</p></details>
+      <details><summary>How will students hear about Opportiva?</summary><p>Through school partnerships, student ambassadors, educational organisations and community outreach.</p></details>
+      <details><summary>How will Opportiva keep running?</summary><p>Through verified school and organiser accounts, partnerships and optional services for institutions. Public discovery stays free.</p></details>
+      <details><summary>Why start in Badagry?</summary><p>It’s a community where access to information about educational opportunities can be improved. We’ll test and learn there before expanding.</p></details>
+    </div>
+  </div>
+</section>
+
+<section id="name">
+  <div class="wrap">
+    <p class="eyebrow">Our name</p>
+    <h2>Opport + <em>iva.</em></h2>
+    <div class="name">
+      <div class="reveal" style="background:var(--butter)"><span class="mono">Opport</span><h3>Opportunity</h3>The root of our name.</div>
+      <div class="reveal" style="background:var(--mint)"><span class="mono">I</span><h3>Inclusion</h3>Every student deserves a chance, whatever their location, background or school.</div>
+      <div class="reveal" style="background:var(--sky)"><span class="mono">V</span><h3>Visibility</h3>Making competitions, scholarships, quizzes and spelling bees easy to see.</div>
+      <div class="reveal" style="background:var(--lilac)"><span class="mono">A</span><h3>Access</h3>Helping students discover, understand and take part in opportunities they might never hear about.</div>
+    </div>
+  </div>
+</section>
+
+<section class="alt end" style="padding-bottom:110px">
+  <h2>Talent has no <em>zip code.</em></h2>
+  <p class="lead">Every student deserves the chance to discover, develop and show their potential, wherever they live.</p>
+  <p class="center" style="margin-top:36px"><a class="btn" href="#listings">Explore opportunities</a></p>
+  <p class="vision">To become a trusted digital platform connecting students and schools across Nigeria and beyond with opportunities that inspire learning and develop talent.</p>
+</section>
+</main>
+
+<footer>
+  <div class="in">
+    <div class="top"><a class="logo" href="#top"><i></i>Opportiva</a><span>Connecting talent to opportunities.</span></div>
+    <nav aria-label="Footer"><a href="#listings">Explore</a><a href="#categories">Categories</a><a href="#organisers">For organisers</a><a href="#about">About</a><a href="#faq">Report a listing</a><span class="ph">[Contact email]</span><span class="ph">[Social links]</span></nav>
+  </div>
+</footer>
+
+<script>
+document.documentElement.classList.add('js');
+try{
+  var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}})},{threshold:.12});
+  document.querySelectorAll('.reveal').forEach(function(el){io.observe(el)});
+}catch(e){document.querySelectorAll('.reveal').forEach(function(el){el.classList.add('in')})}
+</script>
+<div id="app"></div>
+<div id="dro"></div><aside id="dr" aria-label="Listing details"></aside>
+<div id="ov"></div><div id="toast" role="status" aria-live="polite"></div>
+<button class="dpill" data-a="guide" aria-label="Open demo guide"><i></i>Demo mode</button><div class="dguide" id="guide" hidden></div>
+<script>(function(){
+const $=(s,e=document)=>e.querySelector(s),$$=(s,e=document)=>[...e.querySelectorAll(s)];
+const DAY=864e5,today=new Date();
+const fmtDate=d=>new Date(+today+d*DAY).toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'numeric'});
+const iso=n=>new Date(+today+n*DAY).toISOString().slice(0,10);
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const P={student:'M2 9l10-5 10 5-10 5zM6 11v5c3 2.5 9 2.5 12 0v-5',parent:'M9 11a3 3 0 100-6 3 3 0 000 6zM3 20c0-3 3-5 6-5s6 2 6 5M17 11a2.5 2.5 0 100-5M21 19c0-2-1.5-3.5-3.5-4',teacher:'M3 21h18M5 21V9l7-5 7 5v12M10 21v-6h4v6',organiser:'M4 5v16M4 6h12l-2 4 2 4H4',admin:'M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6zM9 12l2 2 4-4',search:'M11 18a7 7 0 100-14 7 7 0 000 14zM21 21l-5-5',save:'M6 3h12v18l-6-4-6 4z',share:'M12 3v12M7 8l5-5 5 5M5 14v6h14v-6',clock:'M12 21a9 9 0 100-18 9 9 0 000 18zM12 7v5l3 2',check:'M5 12l5 5 9-10',flag:'M5 21V4M5 5h13l-3 4 3 4H5',x:'M6 6l12 12M18 6L6 18',inbox:'M3 13l3-8h12l3 8v6H3zM3 13h5l1 2h6l1-2h5',menu:'M4 7h16M4 12h16M4 17h16'};
+const ic=(n,s=20)=>`<svg width="${s}" height="${s}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="${P[n]}"/></svg>`;
+$('.menubtn').innerHTML=ic('menu');
+
+/* ---------- data ---------- */
+const ALL=['JSS1','JSS2','JSS3','SS1','SS2','SS3'];
+const mk=(id,t,cat,loc,tg,el,lv,cost,fmt,org,days,st,own)=>({id,t,cat,loc,tg,el,lv,cost,fmt,org,days,st:st||'Live',own,hidden:false,cm:''});
+const L=[
+mk(1,'Badagry Inter-School Spelling Bee','Academics','Badagry, Lagos',['Badagry','Lagos State'],'JSS1–SS3',ALL,'Free','Physical','Sample Education Forum',20),
+mk(2,'Young Innovators STEM Challenge','STEM','Online, Nigeria-wide',['Online','Nigeria-wide'],'Ages 12–17',ALL,'Free','Online','Sample Tech Club',40),
+mk(3,'Secondary School Debate Series','Academics','Lagos State',['Lagos State'],'SS1–SS3',ALL.slice(3),'₦2,000','Hybrid','Sample Youth Network',30),
+mk(4,'Youth Leadership Conference','Leadership','Ikeja, Lagos',['Lagos State'],'Ages 15–19',ALL.slice(3),'Free','Physical','Sample Foundation',50),
+mk(5,'Community Scholarship Programme','Scholarships','Nigeria-wide',['Nigeria-wide'],'SS3 and university entrants',['SS3'],'Free to apply','Online','Sample Foundation',65),
+mk(6,'Junior Science Quiz','STEM','Badagry, Lagos',['Badagry','Lagos State'],'JSS1–JSS3',ALL.slice(0,3),'Free','Hybrid','Sample Tech Club',4),
+mk(7,'Creative Writing Contest','Arts','Online',['Online'],'Ages 10–16',ALL.slice(0,5),'Free','Online','Sample Education Forum',35),
+mk(8,'Badagry Junior Robotics Camp','STEM','Badagry, Lagos',['Badagry','Lagos State'],'Ages 11–15',ALL.slice(0,5),'₦3,000','Physical','Sample Tech Club',55,'Pending',true)];
+const U={student:{n:'Amara Okafor',r:'Student',e:'amara.student@demo.opportiva.ng',ini:'AO'},parent:{n:'Mrs. Folake Adeyemi',r:'Parent or guardian',e:'folake.parent@demo.opportiva.ng',ini:'FA'},teacher:{n:'Mr. Chidi Nwosu',r:'School or teacher',e:'chidi.teacher@demo.opportiva.ng',ini:'CN'},organiser:{n:'Sample Education Forum',r:'Organiser or NGO',e:'ngozi.bello@demo.opportiva.ng',ini:'SE'},admin:{n:'Opportiva Review Team',r:'Admin or reviewer',e:'review@demo.opportiva.ng',ini:'RT'}};
+const RO={student:['Student','Find opportunities that fit you.','butter'],parent:['Parent or guardian','Check details and support your child.','mint'],teacher:['School or teacher','Find and share opportunities with learners.','sky'],organiser:['Organiser or NGO','Publish opportunities and reach students.','peach'],admin:['Admin or reviewer','Keep listings accurate and trusted.','lilac']};
+const ORD=['student','parent','teacher','organiser','admin'];
+const NAV={student:[['overview','Overview'],['explore','Explore'],['saved','Saved'],['deadlines','Deadlines'],['profile','Profile']],parent:[['overview','Overview'],['explore','Explore for Tobi'],['shared','Shared with me'],['reports','Reports'],['profile','Profile']],teacher:[['overview','Overview'],['explore','Explore'],['short','Class shortlist'],['share','Share'],['profile','Profile']],organiser:[['overview','Overview'],['mine','My listings'],['submit','Submit an opportunity'],['profile','Profile']],admin:[['overview','Overview'],['queue','Review queue'],['reports','Reports'],['listings','Listings']]};
+const PR={student:[['Full name','Amara Okafor'],['Email','amara.student@demo.opportiva.ng'],['School','Sample Grammar School'],['Class level','JSS3'],['State','Lagos'],['LGA','Badagry']],parent:[['Full name','Mrs. Folake Adeyemi'],['Email','folake.parent@demo.opportiva.ng'],['Child','Tobi'],['Child’s class level','JSS2'],['State','Lagos'],['LGA','Badagry']],teacher:[['Full name','Mr. Chidi Nwosu'],['Email','chidi.teacher@demo.opportiva.ng'],['School','Sample Grammar School'],['Role at school','STEM teacher'],['State','Lagos'],['LGA','Badagry']],organiser:[['Organisation','Sample Education Forum'],['Contact','Ngozi Bello'],['Organisation type','Education forum (sample)'],['Website','sample-education-forum.example'],['State','Lagos'],['Status','Verified (sample)']]};
+const S={role:null,view:'overview',saved:[2,5],short:[1,2,6],shared:[1,6],wk:2,reports:[{id:1,lid:3,by:'Mrs. Folake Adeyemi',reason:'Wrong date',note:'',st:'Open'}],f:{},drawer:null,edit:false,nid:9,rid:2};
+const OPT={loc:['Badagry','Lagos State','Online','Nigeria-wide'],cat:['Academics','STEM','Leadership','Scholarships','Arts'],el:ALL,dl:[['7','Within 7 days'],['30','Within 30 days'],['60','Within 60 days']],cost:['Free','Paid'],fmt:['Online','Physical','Hybrid']};
+
+/* ---------- helpers ---------- */
+const byId=id=>L.find(l=>l.id===id),live=()=>L.filter(l=>l.st==='Live'&&!l.hidden);
+const chip=(t,c)=>`<span class="dsc" style="background:var(--${c})">${t}</span>`;
+const stc={Live:'mint',Pending:'butter','Changes requested':'peach',Rejected:'lilac',Open:'butter',Resolved:'sky',Hidden:'lilac'};
+const st=s=>chip(s,stc[s]),catc={Academics:'butter',STEM:'mint',Leadership:'lilac',Scholarships:'peach',Arts:'sky'};
+const badge=l=>l.days<=7?chip('Closes soon · '+l.days+' days','peach'):`<span class="ddays">Closes in ${l.days} days</span>`;
+const card=l=>`<article class="lcard" tabindex="0" role="button" data-a="open" data-id="${l.id}" aria-label="Open ${esc(l.t)}"><div class="dr1">${chip(l.cat,catc[l.cat])}<span class="dsmp">Sample</span></div><h4>${esc(l.t)}</h4><span>${l.loc} · ${l.el}</span><span>${l.cost} · ${l.fmt}</span><div class="dr1">${badge(l)}${l.st!=='Live'?st(l.st):''}</div></article>`;
+const empty=(t,s)=>`<div class="dempty">${ic('inbox',34)}<b>${t}</b><span>${s}</span></div>`;
+const gridL=a=>a.length?`<div class="dgrid">${a.map(card).join('')}</div>`:empty('Nothing here yet.','Items you add will show up here.');
+const grid=ids=>gridL(ids.map(byId).filter(l=>l&&l.st==='Live'&&!l.hidden));
+const ttl=(t,s)=>`<h1>${t}</h1><p class="dsub">${s||''}</p>`;
+const sec=(t,b)=>`<div class="dsec"><h3>${t}</h3>${b}</div>`;
+const nb=(v,t,c)=>`<button class="btn sm${c?' alt2':''}" data-a="nav" data-v="${v}">${t}</button>`;
+const closing=()=>live().filter(l=>l.days<=7).sort((a,b)=>a.days-b.days);
+const strip=()=>{const c=closing();return c.length?`<div class="dstrip">${c.map(l=>`<button class="dsr" data-a="open" data-id="${l.id}">${ic('clock',16)}<span><b>${esc(l.t)}</b> closes in ${l.days} days</span></button>`).join('')}</div>`:empty('No deadlines this week.','Nothing is closing in the next 7 days.')};
+const rows=a=>a.length?`<div class="drows">${a.map(l=>`<button class="drow" data-a="open" data-id="${l.id}"><span class="dnum">${l.days}<small>days</small></span><span><b>${esc(l.t)}</b><small>${fmtDate(l.days)} · ${l.loc}</small></span>${st(l.st)}</button>`).join('')}</div>`:empty('Nothing here yet.','Listings will show up here.');
+const stat=(n,t,c)=>`<div class="dstat" style="background:var(--${c})"><b>${n}</b>${t}</div>`;
+const mine=()=>L.filter(l=>l.org==='Sample Education Forum'||l.own);
+const fd=(id,l,v,t,f)=>`<label class="dfl ${f||''}"><span>${l}</span><input id="${id}" type="${t||'text'}" value="${v||''}"></label>`;
+const sel=(k,l,o)=>`<label class="dfl"><span>${l}</span><select data-f="${k}"><option value="">Any</option>${o.map(x=>{const[v,t]=Array.isArray(x)?x:[x,x];return`<option value="${v}"${S.f[k]===v?' selected':''}>${t}</option>`}).join('')}</select></label>`;
+const filt=()=>live().filter(l=>{const f=S.f;return(!f.q||(l.t+l.cat+l.loc+l.org).toLowerCase().includes(f.q.toLowerCase()))&&(!f.loc||l.tg.includes(f.loc))&&(!f.cat||l.cat===f.cat)&&(!f.el||l.lv.includes(f.el))&&(!f.dl||l.days<=+f.dl)&&(!f.cost||(f.cost==='Free')===l.cost.startsWith('Free'))&&(!f.fmt||l.fmt===f.fmt)});
+let tt;const toast=m=>{const t=$('#toast');t.textContent=m;t.classList.add('on');clearTimeout(tt);tt=setTimeout(()=>t.classList.remove('on'),2400)};
+
+/* ---------- views ---------- */
+function explore(){const p=S.role==='parent';return ttl(p?'Explore for Tobi':'Explore',p?'Pre-filtered to JSS2 and Badagry. Change any filter.':'Search and filter sample opportunities.')+`<div class="dfbar"><label class="dfl dq"><span>Search</span><input data-f="q" type="search" placeholder="Search spelling bees, scholarships, STEM challenges..." value="${esc(S.f.q||'')}"></label>${sel('loc','Location',OPT.loc)}${sel('cat','Category',OPT.cat)}${sel('el','Eligibility',OPT.el)}${sel('dl','Deadline',OPT.dl)}${sel('cost','Cost',OPT.cost)}${sel('fmt','Format',OPT.fmt)}</div><p class="dcount" id="cnt" aria-live="polite"></p><div id="res"></div>`}
+function drawRes(){const a=filt();$('#cnt').textContent=a.length+' result'+(a.length===1?'':'s');$('#res').innerHTML=a.length?`<div class="dgrid">${a.map(card).join('')}</div>`:empty('No matches.','Try removing a filter.')}
+function profile(){return ttl('Profile','Pre-filled sample details.')+`<div class="dcard"><div class="dform" id="pf">${PR[S.role].map(([a,b])=>`<label class="dfl"><span>${a}</span>${S.edit?`<input value="${esc(b)}">`:`<div class="pv">${esc(b)}</div>`}</label>`).join('')}</div><p class="dbtns">${S.edit?'<button class="btn sm" data-a="psave">Save</button>':'<button class="btn sm alt2" data-a="pedit">Edit</button>'}</p></div>`}
+const child=(i,n,s,c)=>`<div class="dcard dchild"><span class="av lg">${i}</span><div><b>${n}</b><small>${s}</small></div>${c||''}</div>`;
+const V={
+'student.overview':()=>`<h1>Welcome back, Amara</h1><p class="dsub">JSS3 · Sample Grammar School, Badagry</p><p class="dnote">${ic('check',16)}No payment or account is needed to browse on the public site.</p>`+sec('Recommended for you',grid([1,6,3]))+sec('Closing soon',strip()),
+'student.saved':()=>ttl('Saved','Opportunities you have saved.')+grid(S.saved),
+'student.deadlines':()=>ttl('Deadlines','Sorted by closing date.')+rows(live().sort((a,b)=>a.days-b.days)),
+'parent.overview':()=>`<h1>Welcome back, Mrs. Adeyemi</h1><p class="dsub">Support Tobi’s next step.</p>`+child('TA','Tobi','JSS2 · Badagry',chip('Sample profile','sky'))+sec('Suitable for Tobi',grid([1,6,2]))+sec('Check before you apply',`<ul class="dchk">${[['Cost','Is the fee shown, and who charges it?'],['Format','Online, physical or hybrid?'],['Official link','Apply only through the organiser’s official link.'],['Reviewed badge','Look for the Reviewed listing badge.']].map(([a,b])=>`<li>${ic('check',18)}<span><b>${a}.</b> ${b}</span></li>`).join('')}</ul>`),
+'parent.shared':()=>ttl('Shared with me','Shared by Mr. Chidi Nwosu.')+grid(S.shared),
+'parent.reports':()=>{const r=S.reports.filter(x=>x.by.includes('Adeyemi'));return ttl('Reports','Listings you have reported.')+(r.length?r.map(x=>`<div class="dcard drep"><div><b>${esc(byId(x.lid).t)}</b><small>${x.reason}${x.note?' · '+esc(x.note):''}</small></div>${st(x.st)}</div>`).join(''):empty('No reports yet.','Use “Report this listing” on any listing.'))},
+'teacher.overview':()=>`<h1>Welcome back, Mr. Nwosu</h1><p class="dsub">STEM teacher</p>`+child('SG','Sample Grammar School','Badagry · Sample school')+`<div class="dstats">${stat(S.short.length,'listings shortlisted','sky')}${stat(S.wk,'shared this week','mint')}${stat(S.short.filter(i=>byId(i).days<=7).length,'closing soon','peach')}</div><p class="dbtns">${nb('explore','Explore STEM')}${nb('short','Open shortlist',1)}</p>`,
+'teacher.short':()=>ttl('Class shortlist','Add listings from Explore, or remove them here.')+(S.short.length?`<div class="drows">${S.short.map(byId).map(l=>`<div class="drow"><span class="dnum">${l.days}<small>days</small></span><span><b>${esc(l.t)}</b><small>${l.loc} · ${l.cost}</small></span><button class="btn sm alt2" data-a="unshort" data-id="${l.id}">Remove</button></div>`).join('')}</div>`:empty('Shortlist is empty.','Open a listing and choose “Add to shortlist”.')),
+'teacher.share':()=>ttl('Share','Pick a shortlist item to share with learners and families.')+(S.short.length?`<div class="dcard"><label class="dfl"><span>Shortlist item</span><select id="shsel">${S.short.map(byId).map(l=>`<option value="${l.id}">${esc(l.t)}</option>`).join('')}</select></label><p class="dbtns"><button class="btn sm alt2" data-a="cpy">Copy link</button><button class="btn sm" data-a="wa">Share on WhatsApp</button><button class="btn sm alt2" data-a="all">Share all as one link</button></p></div>`:empty('Nothing to share.','Add items to the shortlist first.'))+`<p class="dsub" style="margin-top:16px;font-size:13px">Verified school accounts are an optional future service.</p>`,
+'organiser.overview':()=>{const m=mine();return`<h1>Welcome back, Sample Education Forum</h1><p class="dsub">${chip('Verified (sample)','mint')}</p><div class="dstats">${stat(m.filter(l=>l.st==='Live').length,'live listings','mint')}${stat(m.filter(l=>l.st==='Pending').length,'pending','butter')}${stat(m.filter(l=>l.st==='Rejected').length,'rejected','lilac')}</div>`+sec('How review works',`<div class="dflow"><span style="background:var(--sky)">1 · Submit</span><span style="background:var(--butter)">2 · Under review</span><span style="background:var(--mint)">3 · Live</span></div>`)+`<p class="dbtns">${nb('submit','Submit an opportunity')}${nb('mine','My listings',1)}</p>`},
+'organiser.mine':()=>ttl('My listings','Status updates as the review team acts.')+`<div class="dtw"><table class="dtbl"><thead><tr><th>Listing</th><th>Status</th><th>Closes</th><th></th></tr></thead><tbody>${mine().map(l=>`<tr><td><b>${esc(l.t)}</b><small>${l.cat} · ${l.loc}</small>${l.cm&&l.st==='Changes requested'?`<small>Admin comment: ${esc(l.cm)}</small>`:''}</td><td>${st(l.st)}</td><td>${l.days} days</td><td>${l.st==='Changes requested'?`<button class="btn sm alt2" data-a="resubmit" data-id="${l.id}">Resubmit</button>`:`<button class="btn sm alt2" data-a="open" data-id="${l.id}">View</button>`}</td></tr>`).join('')}</tbody></table></div>`,
+'organiser.submit':()=>ttl('Submit an opportunity','Your listing will be reviewed before it goes live.')+`<div class="dcard"><div class="dform">${fd('f_t','Title','','text','full')}<label class="dfl"><span>Category</span><select id="f_c">${OPT.cat.map(c=>`<option>${c}</option>`).join('')}</select></label>${fd('f_e','Eligibility (age range or class level)')}<label class="dfl full"><span>Description</span><textarea id="f_d" rows="3"></textarea></label>${fd('f_s','State')}${fd('f_l','LGA')}${fd('f_v','Venue')}${fd('f_co','Cost','Free')}${fd('f_dl','Deadline','','date')}${fd('f_ev','Event date','','date')}<label class="dfl"><span>Format</span><select id="f_f">${OPT.fmt.map(c=>`<option>${c}</option>`).join('')}</select></label>${fd('f_u','Official registration link','','url')}</div><p class="dbtns"><button class="btn sm alt2" data-a="fill">Fill with sample data</button><button class="btn sm" data-a="submit">Submit for review</button></p></div>`,
+'admin.overview':()=>`<h1>Welcome back, Review Team</h1><p class="dsub">Everything here updates live as other roles act.</p><div class="dstats">${stat(L.filter(l=>l.st==='Pending').length,'pending review','butter')}${stat(S.reports.filter(r=>r.st==='Open').length,'open reports','peach')}${stat(live().length,'live listings','mint')}</div><p class="dbtns">${nb('queue','Open review queue')}${nb('reports','View reports',1)}</p>`,
+'admin.queue':()=>{const p=L.filter(l=>l.st==='Pending');return ttl('Review queue','Open an item to approve, request changes or reject.')+(p.length?`<div class="drows">${p.map(l=>`<button class="drow" data-a="open" data-id="${l.id}"><span class="dnum">${l.days}<small>days</small></span><span><b>${esc(l.t)}</b><small>${l.org} · ${l.cat}</small></span>${st('Pending')}</button>`).join('')}</div>`:empty('Queue is clear.','No listings are waiting for review.'))},
+'admin.reports':()=>ttl('Reports','Reports from users, newest first.')+(S.reports.length?[...S.reports].reverse().map(r=>{const l=byId(r.lid);return`<div class="dcard drep"><div><b>${esc(l.t)}</b><small>${r.reason}${r.note?' · '+esc(r.note):''} · by ${esc(r.by)}</small></div><div class="dbtns" style="margin:0">${st(r.st)}${r.st==='Open'?`<button class="btn sm alt2" data-a="resolve" data-id="${r.id}">Mark resolved</button>`:''}<button class="btn sm alt2" data-a="hide" data-lid="${l.id}">${l.hidden?'Restore listing':'Hide listing'}</button></div></div>`}).join(''):empty('No reports.','Nothing has been reported.')),
+'admin.listings':()=>ttl('Listings','All sample listings and their status.')+`<div class="dtw"><table class="dtbl"><thead><tr><th>Listing</th><th>Status</th><th>Organiser</th></tr></thead><tbody>${L.map(l=>`<tr><td><b>${esc(l.t)}</b><small>${l.cat} · ${l.loc}</small></td><td>${st(l.st)} ${l.hidden?st('Hidden'):''}</td><td>${l.org}</td></tr>`).join('')}</tbody></table></div>`};
+const G={explore,profile};
+function render(){const u=U[S.role];$('#app').innerHTML=`<div class="dwrap"><nav class="dside" aria-label="Dashboard"><div class="dwho"><span class="av">${u.ini}</span><div><b>${esc(u.n)}</b><small>${u.r}</small></div></div>${NAV[S.role].map(([v,t])=>`<button data-a="nav" data-v="${v}" class="${S.view===v?'on':''}"${S.view===v?' aria-current="page"':''}>${t}</button>`).join('')}</nav><div class="dmain">${(V[S.role+'.'+S.view]||G[S.view]||(()=>''))()}</div></div>`;if(S.view==='explore')drawRes();if(S.drawer)drawDr()}
+function go(v){S.view=v;S.edit=false;if(v==='explore')S.f=S.role==='parent'?{el:'JSS2',loc:'Badagry'}:S.role==='teacher'?{cat:'STEM'}:{};render();scrollTo({top:0})}
+
+/* ---------- drawer & modal ---------- */
+function drawDr(){const l=byId(S.drawer),r=S.role;if(!l)return;const sv=S.saved.includes(l.id),sh=S.short.includes(l.id);
+let a=`<button class="btn sm alt2" data-a="share" data-id="${l.id}">${ic('share',16)}&nbsp;Share</button>`;
+if(r==='student')a=`<button class="btn sm alt2" data-a="save" data-id="${l.id}">${ic('save',16)}&nbsp;${sv?'Saved':'Save'}</button>`+a;
+if(r==='teacher')a=`<button class="btn sm alt2" data-a="short" data-id="${l.id}">${sh?'Remove from shortlist':'Add to shortlist'}</button>`+a;
+if(r==='parent')a+=`<button class="btn sm alt2" data-a="report" data-id="${l.id}">${ic('flag',16)}&nbsp;Report this listing</button>`;
+let ad='';if(r==='admin')ad=l.st==='Pending'?`<textarea id="cm" rows="3" aria-label="Comment for the organiser" placeholder="Comment for the organiser (needed to request changes)" style="margin-top:16px"></textarea><div class="dbtns"><button class="btn sm" data-a="approve" data-id="${l.id}">Approve</button><button class="btn sm alt2" data-a="changes" data-id="${l.id}">Request changes</button><button class="btn sm alt2" data-a="reject" data-id="${l.id}">Reject</button></div>`:l.st==='Live'?`<div class="dbtns"><button class="btn sm alt2" data-a="hide" data-lid="${l.id}">${l.hidden?'Restore listing':'Hide listing'}</button></div>`:'';
+$('#dr').innerHTML=`<button class="dx" data-a="closeDr" aria-label="Close listing">${ic('x',18)}</button><div class="dr1" style="margin-right:44px">${chip(l.cat,catc[l.cat])}<span class="dsmp">Sample</span>${st(l.st)}${l.st==='Live'?chip('Reviewed listing','mint'):''}</div><h2>${esc(l.t)}</h2><dl><dt>Organiser</dt><dd>${l.org}</dd><dt>Location</dt><dd>${l.loc}</dd><dt>Eligibility</dt><dd>${l.el}</dd><dt>Deadline</dt><dd>${fmtDate(l.days)} (closes in ${l.days} days)</dd><dt>Cost</dt><dd>${l.cost}</dd><dt>Format</dt><dd>${l.fmt}</dd></dl><p style="margin:16px 0">Sample description for demonstration only. Real listings show the organiser’s own details and application steps.</p>${l.cm&&l.st==='Changes requested'?`<div class="dcm"><b>Admin comment:</b> ${esc(l.cm)}</div>`:''}<div class="dbtns">${a}</div>${l.st==='Live'?`<div class="dbtns"><button class="btn" data-a="reg">Go to official registration</button></div>`:''}${ad}`}
+function openDr(id){S.drawer=id;drawDr();$('#dr').classList.add('on');$('#dro').classList.add('on');$('#dr .dx').focus()}
+function closeDr(){S.drawer=null;$('#dr').classList.remove('on');$('#dro').classList.remove('on')}
+function openM(h,c){const o=$('#ov');o.innerHTML=`<div class="mbox ${c||''}" role="dialog" aria-modal="true"><button class="dx" data-a="closeM" aria-label="Close">${ic('x',18)}</button>${h}</div>`;o.classList.add('on');const f=$('select,input:not([readonly]),.btn',o);if(f)f.focus()}
+function closeM(){$('#ov').classList.remove('on');$('#ov').innerHTML=''}
+const hideMenus=()=>{$('#umenu').hidden=$('#mnav').hidden=true};
+
+/* ---------- auth ---------- */
+const inTab=()=>`<div class="dform"><label class="dfl"><span>Email</span><input id="em" readonly value="${U.student.e}"></label><label class="dfl"><span>Password</span><input readonly value="••••••••" aria-label="Password (display only)"></label></div><div class="rcs">${ORD.map(k=>`<div class="rc" data-r="${k}" style="background:var(--${RO[k][2]})"><span class="ric">${ic(k,22)}</span><h4>${RO[k][0]}</h4><p>${RO[k][1]}</p><button class="btn sm" data-a="signin" data-r="${k}">Continue as ${RO[k][0]}</button></div>`).join('')}</div>`;
+const fi=(id,l,v)=>`<label class="dfl"><span>${l}</span><input id="${id}" value="${v}"></label>`;
+const EX={student:()=>fi('x1','School','Sample Grammar School')+fi('x2','Class level','JSS3'),parent:()=>fi('x1','Child’s class level','JSS2'),teacher:()=>fi('x1','School name','Sample Grammar School')+fi('x2','Role at school','STEM teacher'),organiser:()=>fi('x1','Organisation name','Sample Education Forum')+fi('x2','Organisation type','Education forum')+fi('x3','Website','sample-education-forum.example')};
+const upTab=r=>`<div class="dform">${fi('un','Full name',U[r].n)}${fi('ue','Email',U[r].e)}<label class="dfl"><span>Password</span><input readonly value="••••••••" aria-label="Password (display only)"></label><label class="dfl"><span>I am a</span><select id="ur">${ORD.slice(0,4).map(k=>`<option value="${k}"${k===r?' selected':''}>${RO[k][0]}</option>`).join('')}</select></label>${fi('us','State','Lagos')}${fi('ul','LGA','Badagry')}${EX[r]()}</div><p class="dbtns"><button class="btn" data-a="signup">Create demo account</button></p>`;
+function openAuth(t){openM(`<p class="dbanner">Demo mode: no real account is created. Pick a role to explore.</p><div class="dtabs" role="tablist">${[['in','Sign in'],['up','Sign up']].map(([k,n])=>`<button role="tab" aria-selected="${k===t}" class="${k===t?'on':''}" data-a="tab" data-t="${k}">${n}</button>`).join('')}</div><div id="atab">${t==='in'?inTab():upTab('student')}</div>`,'auth')}
+function navUser(){const u=S.role&&U[S.role];$('#navuser').innerHTML=u?`<button class="uchip" data-a="umenu" aria-haspopup="true" aria-label="Account menu"><span class="av">${u.ini}</span><span class="un">${esc(u.n)}<small>${u.r}</small></span></button>`:''}
+function signIn(r){S.role=r;S.view='overview';S.f={};S.edit=false;closeDr();closeM();hideMenus();$('#guide').hidden=true;document.body.classList.add('in-app');render();navUser();scrollTo({top:0})}
+function signOut(){S.role=null;closeDr();hideMenus();$('#guide').hidden=true;document.body.classList.remove('in-app');$('#app').innerHTML='';navUser();scrollTo({top:0});toast('Signed out')}
+const rep=()=>{S.drawer&&drawDr();render()};
+
+/* ---------- events ---------- */
+document.addEventListener('click',e=>{
+const b=e.target.closest('[data-a]');
+if(!b){if(!e.target.closest('.nav,.dpill,.dguide'))hideMenus(),$('#guide').hidden=true;if(e.target.id==='ov')closeM();if(e.target.id==='dro')closeDr();return}
+const a=b.dataset.a,id=+b.dataset.id,l=byId(+(b.dataset.lid||b.dataset.id)),d=b.dataset;
+switch(a){
+case'auth':hideMenus();openAuth(d.t);break;
+case'tab':$$('.dtabs button').forEach(x=>{const on=x===b;x.classList.toggle('on',on);x.setAttribute('aria-selected',on)});$('#atab').innerHTML=d.t==='in'?inTab():upTab('student');break;
+case'signin':signIn(d.r);break;
+case'signup':{const r=$('#ur').value;$('#atab').innerHTML=`<div class="dok">${ic('check',30)}<b>Demo account created</b><span>Nothing was saved. Opening the dashboard…</span></div>`;toast('Demo account created (nothing saved)');setTimeout(()=>signIn(r),900);break}
+case'closeM':closeM();break;case'closeDr':closeDr();break;
+case'umenu':{const m=$('#umenu');const o=m.hidden;hideMenus();if(o){m.innerHTML=`<small>Switch role</small>${ORD.map(k=>`<button data-a="signin" data-r="${k}" class="${S.role===k?'on':''}">${RO[k][0]}${S.role===k?' ✓':''}</button>`).join('')}<small>Account</small><button data-a="signout">Sign out</button>`;m.hidden=false}break}
+case'mmenu':{const m=$('#mnav');const o=m.hidden;hideMenus();if(o){m.innerHTML=`<a href="#listings">Explore</a><a href="#categories">Categories</a><a href="#how">How it works</a><a href="#organisers">For organisers</a><a href="#about">About</a><button data-a="auth" data-t="in">Sign in</button><button data-a="auth" data-t="up">Sign up</button>`;m.hidden=false}break}
+case'signout':signOut();break;
+case'guide':{const g=$('#guide');if(g.hidden){g.innerHTML=`<b style="margin-top:0">Demo guide</b><p style="margin-bottom:10px">Jump to a role:</p><div class="dgj">${ORD.map(k=>`<button data-a="signin" data-r="${k}" class="${S.role===k?'on':''}">${RO[k][0]}</button>`).join('')}</div><b>Suggested 5-minute path</b><ol><li>Student: find the Badagry Spelling Bee in Explore.</li><li>Parent: report that listing.</li><li>Organiser: submit a new listing.</li><li>Admin: approve it in the review queue.</li><li>Student: find it in Explore.</li></ol>`}g.hidden=!g.hidden;break}
+case'nav':go(d.v);break;
+case'open':openDr(id);break;
+case'save':{const i=S.saved.indexOf(id);i<0?S.saved.push(id):S.saved.splice(i,1);toast(i<0?'Saved':'Removed from saved');rep();break}
+case'share':toast('Link copied (demo)');break;
+case'reg':openM(`<h3>Official registration</h3><p>In the real product you would now be taken to the organiser’s official page.</p><p class="dbtns"><button class="btn sm" data-a="closeM">Close</button></p>`);break;
+case'report':openM(`<h3>Report this listing</h3><p style="margin-bottom:14px">${esc(l.t)}</p><div class="dform"><label class="dfl full"><span>Reason</span><select id="rr"><option>Wrong date</option><option>Suspicious</option><option>Other</option></select></label><label class="dfl full"><span>Note (optional)</span><textarea id="rn" rows="3"></textarea></label></div><p class="dbtns"><button class="btn sm" data-a="sendrep" data-id="${l.id}">Submit report</button></p>`);break;
+case'sendrep':S.reports.push({id:S.rid++,lid:id,by:'Mrs. Folake Adeyemi',reason:$('#rr').value,note:$('#rn').value.trim(),st:'Open'});closeM();toast('Report sent. The review team can see it now.');rep();break;
+case'short':{const i=S.short.indexOf(id);i<0?S.short.push(id):S.short.splice(i,1);toast(i<0?'Added to shortlist':'Removed from shortlist');rep();break}
+case'unshort':S.short=S.short.filter(x=>x!==id);toast('Removed from shortlist');rep();break;
+case'cpy':toast('Link copied (demo)');break;
+case'all':toast('One link for all shortlisted items copied (demo)');break;
+case'wa':{const x=byId(+$('#shsel').value);if(!S.shared.includes(x.id)){S.shared.push(x.id);S.wk++}openM(`<h3>WhatsApp preview</h3><div class="dwa">Hello! Sharing a sample opportunity: “${esc(x.t)}” (${x.cat}, ${x.loc}). Closes in ${x.days} days. Details: [demo link, not real]</div><p style="font-size:13px">Preview only. Nothing was sent.</p><p class="dbtns"><button class="btn sm" data-a="closeM">Close</button></p>`);break}
+case'approve':l.st='Live';closeDr();toast('Approved. It is now live in every Explore view.');render();break;
+case'changes':{const c=$('#cm').value.trim();if(!c){toast('Add a comment first');break}l.st='Changes requested';l.cm=c;closeDr();toast('Changes requested. The organiser will see your comment.');render();break}
+case'reject':l.st='Rejected';closeDr();toast('Listing rejected');render();break;
+case'resubmit':l.st='Pending';l.cm='';toast('Resubmitted for review');render();break;
+case'hide':l.hidden=!l.hidden;toast(l.hidden?'Listing hidden from Explore':'Listing restored');rep();break;
+case'resolve':S.reports.find(r=>r.id===id).st='Resolved';toast('Report marked resolved');render();break;
+case'pedit':S.edit=true;render();break;
+case'psave':$$('#pf input').forEach((x,k)=>PR[S.role][k][1]=x.value);S.edit=false;toast('Saved (demo)');render();break;
+case'fill':{const v={f_t:'Badagry Primary Maths Olympiad (Sample)',f_e:'Ages 9–15',f_d:'A sample maths contest for primary and junior secondary pupils.',f_s:'Lagos',f_l:'Badagry',f_v:'Sample Community Hall',f_co:'Free',f_dl:iso(45),f_ev:iso(60),f_u:'https://example.org/register',f_c:'STEM',f_f:'Physical'};for(const k in v)$('#'+k).value=v[k];toast('Sample data filled in');break}
+case'submit':{const t=$('#f_t').value.trim(),dl=$('#f_dl').value;if(!t){toast('Add a title first');break}const f=$('#f_f').value,tg=[];if(/badagry/i.test($('#f_l').value))tg.push('Badagry');if(/lagos/i.test($('#f_s').value))tg.push('Lagos State');if(f==='Online')tg.push('Online');if(!tg.length)tg.push('Nigeria-wide');const lo=[$('#f_l').value,$('#f_s').value].filter(Boolean).join(', ')||'Nigeria-wide';L.push(mk(S.nid++,t,$('#f_c').value,lo,tg,$('#f_e').value||'All levels',ALL,$('#f_co').value||'Free',f,'Sample Education Forum',dl?Math.max(1,Math.ceil((new Date(dl)-today)/DAY)):30,'Pending'));toast('Your listing is under review.');go('mine');break}
+}});
+document.addEventListener('input',e=>{const k=e.target.dataset&&e.target.dataset.f;if(k){S.f[k]=e.target.value;drawRes()}});
+document.addEventListener('change',e=>{if(e.target.id==='ur')$('#atab').innerHTML=upTab(e.target.value)});
+document.addEventListener('mouseover',e=>{const c=e.target.closest('.rc');if(c&&$('#em'))$('#em').value=U[c.dataset.r].e});
+document.addEventListener('focusin',e=>{const c=e.target.closest('.rc');if(c&&$('#em'))$('#em').value=U[c.dataset.r].e});
+document.addEventListener('keydown',e=>{if(e.key==='Enter'&&e.target.matches('article[data-a]')){e.preventDefault();e.target.click()}if(e.key!=='Escape')return;if($('#ov').classList.contains('on'))closeM();else if(S.drawer)closeDr();else{hideMenus();$('#guide').hidden=true}});
+})();
+</script>
+</body>
+</html>
